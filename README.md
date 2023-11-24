@@ -30,7 +30,8 @@
 
 </ul>
 
-<h4>*Содержимое `.env` файла<h4>
+<h4>*Содержимое `.env` файла</h4>
+
 ```
 MYSQL_HOST=db
 MYSQL_USER=root
