@@ -6,7 +6,7 @@ class Book(models.Model):
     title = models.CharField('Название', unique=True, max_length=255)
     author = models.CharField('Автор', max_length=255)
     year_published = models.PositiveIntegerField('Год издания')
-    isbn = models.CharField('ISBN', max_length=13)
+    isbn = models.CharField('ISBN', max_length=13, unique=True)
 
     class Meta:
         verbose_name = 'Книга'
