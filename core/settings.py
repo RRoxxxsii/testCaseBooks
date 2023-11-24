@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # 3-rd party packages
     'rest_framework',
+
+    # apps
+    'books',
 ]
 
 MIDDLEWARE = [
