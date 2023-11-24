@@ -1,0 +1,54 @@
+services:
+
+  # MySQL
+  db:
+    image: mysql:8.2.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./mysql/db:/var/lib/mysql
+    ports:
+      - '3306:3306'
+
+ # Backend Django
+  backend:
+    build: .
+    command:
+      bash -c "./manage.py collectstatic --noinput && ./manage.py migrate && 
+      ./manage.py runserver 0.0.0.0:8000"
+    ports:
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_started
+    volumes:
+      - .:/service
+    env_file:
+      - .env
+
+  # Redis
+  redis:
+    image: redis:7.0.5-alpine
+
+  # Celery Worker
+  celery:
+    restart: always
+    build:
+      context: .
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - .:/service
+    container_name: celery
+    depends_on:
+      - db
+      - redis
+      - backend
+    links:
+      - redis
+    env_file:
+      - .env
+
+volumes:
+  mysql:
