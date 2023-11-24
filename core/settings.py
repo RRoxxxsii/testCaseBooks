@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # apps
     'books',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -139,10 +140,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'accounts.NewUser'
 
 # Celery
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Redis
 CACHES = {
