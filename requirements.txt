@@ -25,3 +25,5 @@ sqlparse==0.4.4
 tzdata==2023.3
 vine==5.1.0
 wcwidth==0.2.12
+pytest==7.4.3
+pytest-django==4.7.0
